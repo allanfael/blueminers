@@ -1,20 +1,52 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useCallback } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { ToastOptions, ToastProvider } from 'react-native-toast-notifications'
+import {
+  Muli_400Regular,
+  Muli_600SemiBold,
+  Muli_700Bold,
+} from '@expo-google-fonts/muli'
+import { useFonts } from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
+import moment from 'moment'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import 'react-native-gesture-handler'
+import 'moment/locale/pt-br'
+
+import { RootNavigation } from './src/navigators'
+
+const toastCustomization: ToastOptions = {
+  placement: 'bottom',
+  duration: 3000,
+  successColor: '#0c7c65',
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  moment.locale('pt-br')
+
+  const [fontsLoaded] = useFonts({
+    Muli_400Regular,
+    Muli_600SemiBold,
+    Muli_700Bold,
+  })
+
+  const onLayoutRootView = useCallback(async () => {
+    await SplashScreen.hideAsync()
+  }, [])
+
+  if (!fontsLoaded) {
+    return null
+  }
+
+  onLayoutRootView()
+
+  return (
+    <SafeAreaProvider>
+      <StatusBar backgroundColor="red" />
+      <ToastProvider {...toastCustomization}>
+        <RootNavigation />
+      </ToastProvider>
+    </SafeAreaProvider>
+  )
+}

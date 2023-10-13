@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "bluminers",
+    "name": "BluMiners",
     "slug": "bluminers",
-    "version": "1.0.0",
+    "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,16 +15,35 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.allanfael.bluminers"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.allanfael.bluminers"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": false
+    },
+    "build": {
+      "preview": {
+        "distribution": "internal"
+      },
+      "development": {
+        "developmentClient": true,
+        "distribution": "internal"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dbe08444-81c9-4331-9d21-1ca620ca4827"
+      }
     }
   }
 }
