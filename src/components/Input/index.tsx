@@ -1,8 +1,14 @@
 import React, { LegacyRef } from 'react'
-import { TextInput, TextInputProps, View, ViewStyle } from 'react-native'
+import {
+  TextInput,
+  TextInputProps,
+  useColorScheme,
+  View,
+  ViewStyle,
+} from 'react-native'
+import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
 
-import { colors } from '../../themes/colors'
 import { Typography } from '../Typography'
 
 interface Props extends TextInputProps {
@@ -19,20 +25,32 @@ export const Input = React.forwardRef(
     { label, containerStyle, error, ...restProps }: Props,
     ref: LegacyRef<TextInput>,
   ) => {
+    const theme = useColorScheme() ?? 'light'
+
+    const backgroundColor = colors[theme].input
+
+    const text = colors[theme].text
+
     return (
       <>
         <View style={[styles.view, containerStyle]}>
-          <Typography variant="smallMedium" color="#000">
+          <Typography variant="smallMedium" color="info">
             {label}
           </Typography>
-          <TextInput style={styles.input} ref={ref} {...restProps} />
+          <TextInput
+            style={[
+              styles.input,
+              {
+                backgroundColor,
+                color: text,
+              },
+            ]}
+            ref={ref}
+            {...restProps}
+          />
         </View>
         {!!error && (
-          <Typography
-            variant="smallRegular"
-            color="rgb(220 38 38)"
-            style={styles.error}
-          >
+          <Typography variant="smallMedium" color="danger" style={styles.error}>
             {error}
           </Typography>
         )}
@@ -56,8 +74,6 @@ const styles = createStyles({
     padding: 10,
     height: 56,
     borderRadius: 12,
-    backgroundColor: '#e0e0e0',
-    color: '#000',
     fontFamily: 'Muli_400Regular',
   },
 })

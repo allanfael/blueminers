@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Pressable } from 'react-native'
+import { Image, Pressable, useColorScheme } from 'react-native'
 import { logo } from '@assets/index'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
@@ -10,6 +10,7 @@ import { Home } from '@screens/private/Home'
 import { Withdraw } from '@screens/private/Withdraw'
 import { WithdrawConfirmation } from '@screens/private/WithdrawConfirmation'
 import { userStore } from '@store/user'
+import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
 import { ROUTERS } from 'utils/routers'
 
@@ -19,17 +20,26 @@ const Stack = createStackNavigator<PrivateParamsRoute>()
 
 export const PrivateStacks = () => {
   const { logout } = userStore()
+  const scheme = useColorScheme()
+
+  const background =
+    scheme === 'dark' ? colors.dark.background : colors.light.background
+
+  const text = scheme === 'dark' ? colors.dark.text : colors.light.text
 
   return (
     <Stack.Navigator>
       <Stack.Group
         screenOptions={{
           gestureEnabled: false,
-          headerTintColor: '#000',
+          headerTintColor: text,
           headerStyle: {
-            backgroundColor: '#fafafa',
+            backgroundColor: background,
           },
           headerShadowVisible: false,
+          headerLeftContainerStyle: {
+            paddingLeft: 12,
+          },
         }}
       >
         <Stack.Screen
@@ -46,12 +56,13 @@ export const PrivateStacks = () => {
             ),
             headerRight: () => (
               <Pressable style={styles.logout} onPress={logout}>
-                <Typography variant="smallMedium" color="#000">
+                <Typography variant="smallMedium" color="text">
                   Sair
                 </Typography>
                 <MaterialIcons
                   name="logout"
                   size={26}
+                  color={text}
                   style={{
                     alignSelf: 'center',
                   }}
@@ -72,7 +83,6 @@ export const PrivateStacks = () => {
           name={ROUTERS.DEPOSIT_CONFIRMATION}
           component={DepositConfirmation}
           options={{
-            headerBackTitleVisible: false,
             headerShown: false,
           }}
         />

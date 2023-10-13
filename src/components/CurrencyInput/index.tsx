@@ -1,8 +1,9 @@
 import React from 'react'
-import { View } from 'react-native'
+import { useColorScheme, View } from 'react-native'
 import DefaultCurrencyInput, {
   CurrencyInputProps,
 } from 'react-native-currency-input'
+import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
 
 import { Typography } from '../Typography'
@@ -19,15 +20,20 @@ export const CurrencyInput = ({
   min,
   ...props
 }: Props) => {
+  const theme = useColorScheme() ?? 'light'
+
+  const backgroundColor = colors[theme].input
+  const text = colors[theme].text
+
   return (
     <>
       <View style={styles.view}>
         {showInfo && (
           <View style={[styles.view, styles.info]}>
-            <Typography variant="smallMedium" color="#666">
+            <Typography variant="smallMedium" color="info">
               Mínimo: R$ {min}
             </Typography>
-            <Typography variant="smallMedium" color="#666">
+            <Typography variant="smallMedium" color="info">
               Máximo: R$ 100.000,00
             </Typography>
           </View>
@@ -38,16 +44,18 @@ export const CurrencyInput = ({
           separator=","
           precision={2}
           minValue={0}
-          style={styles.input}
+          style={[
+            styles.input,
+            {
+              backgroundColor,
+              color: text,
+            },
+          ]}
           {...props}
         />
       </View>
       {!!error && (
-        <Typography
-          variant="smallRegular"
-          color="rgb(220 38 38)"
-          style={styles.message}
-        >
+        <Typography variant="smallMedium" color="danger" style={styles.message}>
           {error}
         </Typography>
       )}
@@ -69,8 +77,6 @@ const styles = createStyles({
     padding: 10,
     height: 56,
     borderRadius: 12,
-    backgroundColor: '#e0e0e0',
-    color: '#000',
     fontFamily: 'Muli_700Bold',
   },
   message: {

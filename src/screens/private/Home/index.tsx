@@ -116,7 +116,7 @@ export const Home = () => {
     return (
       <Screen>
         <View style={styles.errorCard}>
-          <Typography variant="smallMedium" color="rgb(220 38 38)">
+          <Typography variant="smallMedium" color="danger">
             {error}
           </Typography>
         </View>
@@ -131,12 +131,12 @@ export const Home = () => {
         <RefreshControl refreshing={refresh} onRefresh={update} />
       }
     >
-      <Typography variant="smallMedium" color="#000">
+      <Typography variant="smallMedium" color="text">
         Saldo
       </Typography>
 
       <View style={styles.balance}>
-        <Typography variant="LargeBold" style={styles.money} color="#000">
+        <Typography variant="LargeBold" style={styles.money} color="text">
           {showBalance ? currencyParse(account.currentBalance) : '****'}
         </Typography>
 
@@ -149,75 +149,75 @@ export const Home = () => {
       </View>
 
       <RectButton style={styles.button} onPress={depositNavigation}>
-        <Typography variant="smallMedium" color="#fff">
+        <Typography variant="smallMedium" color="textButton">
           Depositar
         </Typography>
       </RectButton>
 
-      <Typography variant="smallMedium" color="#666" style={styles.incomeGain}>
+      <Typography variant="smallMedium" color="info" style={styles.incomeGain}>
         Nosso rendimento com mineração foi de{' '}
         {account.incomePercent?.toString()}%
       </Typography>
 
       <Typography
         variant="smallMedium"
-        color="#666"
+        color="info"
         style={styles.updatedMessage}
       >
         Ultima atualização {hoursParse(account.lastUpdate)}
       </Typography>
 
       <Pressable style={styles.inviteCard} onPress={clipboard}>
-        <Typography variant="normalMedium" color="#fff">
+        <Typography variant="normalMedium" color="textButton">
           Link de indicação
         </Typography>
         <MaterialCommunityIcons name="content-copy" size={16} color="#fff" />
       </Pressable>
 
-      <Typography variant="LargeBold" color="#000" style={styles.title}>
+      <Typography variant="LargeBold" color="text" style={styles.title}>
         Meus Ganhos
       </Typography>
 
       <View style={[styles.card, styles.cardAccGain]}>
-        <Typography variant="normalMedium" color="#000">
+        <Typography variant="normalMedium" color="text">
           Ganho acumulado
         </Typography>
 
         <View style={[styles.row, styles.between]}>
-          <Typography variant="mediumBold" style={styles.money}>
+          <Typography variant="mediumBold" style={styles.money} color="text">
             {showBalance ? currencyParse(account.accumulatedGain) : '****'}
           </Typography>
         </View>
       </View>
 
       <View style={[styles.card, styles.cardAvailable]}>
-        <Typography variant="normalMedium" color="#000">
+        <Typography variant="normalMedium" color="text">
           Ganho atual
         </Typography>
         <View style={[styles.row]}>
-          <Typography variant="mediumBold" style={styles.money}>
+          <Typography variant="mediumBold" style={styles.money} color="text">
             {currencyParse(account.available)}
           </Typography>
           <Typography
             variant="smallMedium"
-            color="#076d59"
+            color="lastIncome"
             style={styles.lastIncome}
           >
             + {currencyParse(account.lastIncome)}
           </Typography>
         </View>
         <RectButton style={styles.button} onPress={withdrawNavigation}>
-          <Typography variant="smallMedium" color="#fff">
+          <Typography variant="smallMedium" color="textButton">
             Retirar
           </Typography>
         </RectButton>
       </View>
 
       <View style={[styles.card, styles.cardBroker]}>
-        <Typography variant="normalMedium" color="#000">
+        <Typography variant="normalMedium" color="text">
           Ganho ID Broker
         </Typography>
-        <Typography variant="mediumBold" style={styles.money}>
+        <Typography variant="mediumBold" style={styles.money} color="text">
           {currencyParse(account.brokerGain)}
         </Typography>
       </View>

@@ -6,6 +6,7 @@ module.exports = {
   plugins: ['react', 'simple-import-sort'],
   rules: {
     camelcase: 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     // increase the severity of rules so they are auto-fixable
     'simple-import-sort/imports': [
       'error',

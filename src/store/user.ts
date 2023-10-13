@@ -20,9 +20,10 @@ export const userStore = create<UserState>()(
         onShowBalance: (showBalance) => set(() => ({ showBalance })),
         save: (id, token) => set(() => ({ id, token })),
         logout() {
-          set(() => ({
+          set((state) => ({
+            ...state,
             token: null,
-            showBalance: false,
+            showBalance: true,
           }))
         },
       }),

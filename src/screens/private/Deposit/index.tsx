@@ -76,10 +76,10 @@ export const Deposit = () => {
 
   return (
     <Screen>
-      <Typography variant="LargeBold" color="#000">
+      <Typography variant="LargeBold" color="text">
         Depósito
       </Typography>
-      <Typography variant="mediumMedium" color="#000" style={styles.message}>
+      <Typography variant="mediumMedium" color="text" style={styles.message}>
         Quanto você quer depositar?
       </Typography>
 
@@ -103,7 +103,7 @@ export const Deposit = () => {
       {showTerm && (
         <View>
           <View style={styles.card}>
-            <Typography variant="smallMedium" color="#fff">
+            <Typography variant="smallMedium" color="textButton">
               Ao confirmar, você irá criar sua solicitação de depósito, você
               será redirecionado para o ambiente onde poderá proceder com a
               transferência do valor informado. Realize o depósito a partir de
@@ -120,13 +120,13 @@ export const Deposit = () => {
               onValueChange={setChecked}
               color={checked ? '#1f35d9' : undefined}
             />
-            <Typography variant="smallMedium" color="#666">
+            <Typography variant="smallMedium" color="info">
               Li e aceito os termos do contrato
             </Typography>
           </View>
 
           <Pressable style={styles.contractButton} onPress={openLink}>
-            <Typography variant="smallMedium" color="#fff">
+            <Typography variant="smallMedium" color="textButton">
               Visualizar contrato
             </Typography>
           </Pressable>

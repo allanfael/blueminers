@@ -60,11 +60,11 @@ export const Withdraw = () => {
 
   return (
     <Screen>
-      <Typography variant="LargeBold" color="#000">
+      <Typography variant="LargeBold" color="text">
         Saque
       </Typography>
 
-      <Typography variant="mediumMedium" color="#000" style={styles.message}>
+      <Typography variant="mediumMedium" color="text" style={styles.message}>
         Quanto você quer sacar?
       </Typography>
 
@@ -85,12 +85,12 @@ export const Withdraw = () => {
         )}
       />
 
-      <Typography variant="smallMedium" color="#666" style={styles.available}>
+      <Typography variant="smallMedium" color="info" style={styles.available}>
         Disponível {currencyParse(account.available)}
       </Typography>
 
       <View style={styles.card}>
-        <Typography variant="smallMedium" color="#fff">
+        <Typography variant="smallMedium" color="textButton">
           Ao confirmar, você irá criar sua solicitação de saque, iremos
           processar sua solicitação em até 2 dias úteis.
         </Typography>

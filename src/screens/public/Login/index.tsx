@@ -48,8 +48,10 @@ export const Login = () => {
   return (
     <Screen>
       <KeyboardAwareScrollView>
-        <Typography variant="LargeMedium">Bem vindo</Typography>
-        <Typography variant="normalMedium" color="#666666">
+        <Typography variant="LargeMedium" color="text">
+          Bem vindo
+        </Typography>
+        <Typography variant="normalMedium" color="info">
           Entre para continuar
         </Typography>
 
