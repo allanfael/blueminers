@@ -43,7 +43,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <StatusBar backgroundColor="red" />
+      <StatusBar backgroundColor="#fafafa" />
       <ToastProvider {...toastCustomization}>
         <RootNavigation />
       </ToastProvider>
