@@ -9,6 +9,11 @@ export default {
     fontSize: 14,
     lineHeight: 14,
   },
+  smallBold: {
+    fontFamily: 'Muli_700Bold',
+    fontSize: 14,
+    lineHeight: 14,
+  },
   normalRegular: {
     fontFamily: 'Muli_400Regular',
     fontSize: 16,

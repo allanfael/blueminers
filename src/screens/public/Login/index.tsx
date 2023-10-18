@@ -90,6 +90,9 @@ export const Login = () => {
               value={value}
               onChangeText={onChange}
               secureTextEntry
+              onSubmitEditing={handleSubmit(onSubmit)}
+              returnKeyType="go"
+              returnKeyLabel="Entrar"
             />
           )}
         />

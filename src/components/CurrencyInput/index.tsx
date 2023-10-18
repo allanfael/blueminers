@@ -24,6 +24,7 @@ export const CurrencyInput = ({
 
   const backgroundColor = colors[theme].input
   const text = colors[theme].text
+  const placeholderTextColor = colors[theme].info
 
   return (
     <>
@@ -39,6 +40,7 @@ export const CurrencyInput = ({
           </View>
         )}
         <DefaultCurrencyInput
+          placeholderTextColor={placeholderTextColor}
           prefix="R$"
           delimiter="."
           separator=","
@@ -55,7 +57,7 @@ export const CurrencyInput = ({
         />
       </View>
       {!!error && (
-        <Typography variant="smallMedium" color="danger" style={styles.message}>
+        <Typography variant="smallBold" color="danger" style={styles.message}>
           {error}
         </Typography>
       )}

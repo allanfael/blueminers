@@ -3,9 +3,14 @@ import { Image, Pressable, useColorScheme } from 'react-native'
 import { logo } from '@assets/index'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
-import { createStackNavigator } from '@react-navigation/stack'
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+} from '@react-navigation/stack'
 import { Deposit } from '@screens/private/Deposit'
 import { DepositConfirmation } from '@screens/private/DepositConfirmation'
+import { Historic } from '@screens/private/Historic'
+import { HistoricOptions } from '@screens/private/Historic/HistoricOptions'
 import { Home } from '@screens/private/Home'
 import { Withdraw } from '@screens/private/Withdraw'
 import { WithdrawConfirmation } from '@screens/private/WithdrawConfirmation'
@@ -84,6 +89,7 @@ export const PrivateStacks = () => {
           component={DepositConfirmation}
           options={{
             headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
           }}
         />
         <Stack.Screen
@@ -97,6 +103,23 @@ export const PrivateStacks = () => {
         <Stack.Screen
           name={ROUTERS.WITHDRAW_CONFIRMATION}
           component={WithdrawConfirmation}
+          options={{
+            headerTitle: '',
+            headerBackTitleVisible: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+          }}
+        />
+        <Stack.Screen
+          name={ROUTERS.HISTORIC_OPTIONS}
+          component={HistoricOptions}
+          options={{
+            headerTitle: '',
+            headerBackTitleVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name={ROUTERS.HISTORIC}
+          component={Historic}
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,

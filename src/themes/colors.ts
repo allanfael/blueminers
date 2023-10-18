@@ -19,7 +19,7 @@ export const colors = {
     text: '#fff',
     info: '#ddd',
     gray: '#e3e3e3',
-    input: '#454545',
+    input: '#4e4e4e',
     button: '#1f35d9',
     lastIncome: '#b7950b',
   },

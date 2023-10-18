@@ -20,6 +20,7 @@
     "@react-native-masked-view/masked-view": "0.2.9",
     "@react-navigation/native": "^6.1.8",
     "@react-navigation/stack": "^6.3.18",
+    "@shopify/flash-list": "1.4.3",
     "axios": "^1.5.1",
     "expo": "~49.0.13",
     "expo-checkbox": "~2.4.0",

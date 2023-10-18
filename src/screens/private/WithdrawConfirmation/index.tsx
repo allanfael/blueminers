@@ -3,7 +3,10 @@ import { View } from 'react-native'
 import { Button } from '@components/Button'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
-import { WithdrawConfirmationRouteProps } from '@navigator/ParamsRoute'
+import {
+  PrivateRouteProps,
+  WithdrawConfirmationRouteProps,
+} from '@navigator/ParamsRoute'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { createStyles } from 'responsive-react-native'
 import { currencyParse } from 'utils/currencyParse'
@@ -13,7 +16,7 @@ export const WithdrawConfirmation = () => {
 
   const value = params?.value
 
-  const { reset } = useNavigation()
+  const { reset } = useNavigation<PrivateRouteProps>()
 
   return (
     <Screen>

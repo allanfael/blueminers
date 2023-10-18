@@ -85,7 +85,7 @@ export const Withdraw = () => {
         )}
       />
 
-      <Typography variant="smallMedium" color="info" style={styles.available}>
+      <Typography variant="smallBold" color="info" style={styles.available}>
         Disponível {currencyParse(account.available)}
       </Typography>
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Pressable, RefreshControl, View } from 'react-native'
+import { Pressable, RefreshControl, useColorScheme, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useToast } from 'react-native-toast-notifications'
 import { Loading } from '@components/Loading'
@@ -12,25 +12,33 @@ import { get } from '@services/api'
 import ResponseError from '@services/api/ResponseError'
 import { Account, useAccountStore } from '@store/account'
 import { userStore } from '@store/user'
+import { colors } from '@themes/colors'
 import * as Clipboard from 'expo-clipboard'
 import { createStyles } from 'responsive-react-native'
+import { hasMoney } from 'utils/ableToWithdraw'
 import { currencyParse } from 'utils/currencyParse'
 import { hoursParse } from 'utils/hourParse'
 import { ROUTERS } from 'utils/routers'
 
 export const Home = () => {
+  const theme = useColorScheme() ?? 'light'
+
   const { save, account, update: updateStore } = useAccountStore()
+  const { logout, onShowBalance, showBalance } = userStore()
+
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
-  const { logout, onShowBalance, showBalance } = userStore()
 
   const { navigate } = useNavigation<PrivateRouteProps>()
   const toast = useToast()
 
   const depositNavigation = () => navigate(ROUTERS.DEPOSIT)
-
   const withdrawNavigation = () => navigate(ROUTERS.WITHDRAW)
+  const depositHistoricNavigation = () =>
+    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'deposit' })
+  const withdrawHistoricNavigation = () =>
+    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'withdraw' })
 
   const clipboard = async () => {
     if (account.user) {
@@ -43,6 +51,30 @@ export const Home = () => {
 
     toast.show('Não foi possível copiar o link')
   }
+
+  const optionBackgroundColor = colors[theme].input
+  const iconColor = colors[theme].text
+
+  const options = [
+    {
+      label: 'Saques',
+      icon: (
+        <MaterialIcons
+          name="vertical-align-bottom"
+          size={24}
+          color={iconColor}
+        />
+      ),
+      onPress: () => withdrawHistoricNavigation(),
+    },
+    {
+      label: 'Depósitos',
+      icon: (
+        <MaterialIcons name="vertical-align-top" size={24} color={iconColor} />
+      ),
+      onPress: () => depositHistoricNavigation(),
+    },
+  ]
 
   const update = async () => {
     try {
@@ -175,6 +207,34 @@ export const Home = () => {
       </Pressable>
 
       <Typography variant="LargeBold" color="text" style={styles.title}>
+        Histórico
+      </Typography>
+
+      <View style={[styles.row, styles.top]}>
+        {options.map((item) => (
+          <Pressable
+            key={item.label}
+            style={styles.optionContainer}
+            onPress={item.onPress}
+          >
+            <View
+              style={[
+                styles.circle,
+                {
+                  backgroundColor: optionBackgroundColor,
+                },
+              ]}
+            >
+              {item.icon}
+            </View>
+            <Typography variant="normalBold" color="text">
+              {item.label}
+            </Typography>
+          </Pressable>
+        ))}
+      </View>
+
+      <Typography variant="LargeBold" color="text" style={styles.title}>
         Meus Ganhos
       </Typography>
 
@@ -190,27 +250,32 @@ export const Home = () => {
         </View>
       </View>
 
-      <View style={[styles.card, styles.cardAvailable]}>
+      <View style={[styles.card, styles.cardLastIncome]}>
         <Typography variant="normalMedium" color="text">
-          Ganho atual
+          Rendimento do dia
         </Typography>
-        <View style={[styles.row]}>
+
+        <View style={[styles.row, styles.between]}>
           <Typography variant="mediumBold" style={styles.money} color="text">
-            {currencyParse(account.available)}
-          </Typography>
-          <Typography
-            variant="smallMedium"
-            color="lastIncome"
-            style={styles.lastIncome}
-          >
-            + {currencyParse(account.lastIncome)}
+            {currencyParse(account.lastIncome)}
           </Typography>
         </View>
-        <RectButton style={styles.button} onPress={withdrawNavigation}>
-          <Typography variant="smallMedium" color="textButton">
-            Retirar
-          </Typography>
-        </RectButton>
+      </View>
+
+      <View style={[styles.card, styles.cardAvailable]}>
+        <Typography variant="normalMedium" color="text">
+          Ganho disponível
+        </Typography>
+        <Typography variant="mediumBold" style={styles.money} color="text">
+          {currencyParse(account.available)}
+        </Typography>
+        {hasMoney(account.available) && (
+          <RectButton style={styles.button} onPress={withdrawNavigation}>
+            <Typography variant="smallMedium" color="textButton">
+              Retirar
+            </Typography>
+          </RectButton>
+        )}
       </View>
 
       <View style={[styles.card, styles.cardBroker]}>
@@ -226,7 +291,7 @@ export const Home = () => {
 }
 
 const styles = createStyles({
-  title: { marginTop: 60 },
+  title: { marginTop: 40 },
   balance: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -238,6 +303,7 @@ const styles = createStyles({
     borderRadius: 12,
     backgroundColor: '#0c7c65',
     marginTop: 30,
+    marginBottom: 30,
     flexDirection: 'row',
     gap: 10,
   },
@@ -278,6 +344,9 @@ const styles = createStyles({
     marginTop: 6,
     marginRight: 30,
   },
+  cardLastIncome: {
+    backgroundColor: '#ff7f505f',
+  },
   cardAvailable: {
     backgroundColor: '#de31624d',
   },
@@ -285,7 +354,7 @@ const styles = createStyles({
     backgroundColor: '#0d6dfd47',
   },
   cardBroker: {
-    backgroundColor: '#ff7f505f',
+    backgroundColor: '#f1c40f62',
     marginBottom: 10,
   },
   card: {
@@ -317,5 +386,20 @@ const styles = createStyles({
   updatedMessage: {
     marginTop: 16,
     fontStyle: 'italic',
+  },
+  top: {
+    marginTop: 20,
+  },
+  circle: {
+    width: 66,
+    height: 66,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 33,
+    marginBottom: 10,
+  },
+  optionContainer: {
+    alignItems: 'center',
+    marginRight: 20,
   },
 })

@@ -5,4 +5,6 @@ export const ROUTERS = {
   DEPOSIT_CONFIRMATION: 'DepositConfirmation',
   WITHDRAW: 'Withdraw',
   WITHDRAW_CONFIRMATION: 'WithdrawConfirmation',
+  HISTORIC_OPTIONS: 'HistoricOptions',
+  HISTORIC: 'Historic',
 } as const

@@ -16,6 +16,13 @@ export type PrivateParamsRoute = {
   [ROUTERS.WITHDRAW_CONFIRMATION]: {
     value: number
   }
+  [ROUTERS.HISTORIC_OPTIONS]: {
+    type: 'withdraw' | 'deposit'
+  }
+  [ROUTERS.HISTORIC]: {
+    name: 'withdraw' | 'deposit'
+    type: 'approved' | 'pending' | 'rejected'
+  }
 }
 
 export type DepositeConfirmationRouteProps = RouteProp<
@@ -27,6 +34,13 @@ export type WithdrawConfirmationRouteProps = RouteProp<
   PrivateParamsRoute,
   'WithdrawConfirmation'
 >
+
+export type HistoricOptionsRouteProps = RouteProp<
+  PrivateParamsRoute,
+  'HistoricOptions'
+>
+
+export type HistoricRouteProps = RouteProp<PrivateParamsRoute, 'Historic'>
 
 export type PublicRouteProps = StackNavigationProp<PublicParamsRoute>
 export type PrivateRouteProps = StackNavigationProp<PrivateParamsRoute>

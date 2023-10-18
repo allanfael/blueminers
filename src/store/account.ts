@@ -41,7 +41,7 @@ export const useAccountStore = create<AccountState>()((set) => ({
   update(account) {
     set((state) => ({
       ...state,
-      ...account,
+      account,
     }))
   },
   clean() {

@@ -28,8 +28,8 @@ export const Input = React.forwardRef(
     const theme = useColorScheme() ?? 'light'
 
     const backgroundColor = colors[theme].input
-
     const text = colors[theme].text
+    const placeholderTextColor = colors[theme].info
 
     return (
       <>
@@ -38,6 +38,7 @@ export const Input = React.forwardRef(
             {label}
           </Typography>
           <TextInput
+            placeholderTextColor={placeholderTextColor}
             style={[
               styles.input,
               {
@@ -50,7 +51,7 @@ export const Input = React.forwardRef(
           />
         </View>
         {!!error && (
-          <Typography variant="smallMedium" color="danger" style={styles.error}>
+          <Typography variant="smallBold" color="danger" style={styles.error}>
             {error}
           </Typography>
         )}
@@ -74,6 +75,6 @@ const styles = createStyles({
     padding: 10,
     height: 56,
     borderRadius: 12,
-    fontFamily: 'Muli_400Regular',
+    fontFamily: 'Muli_600SemiBold',
   },
 })

@@ -5,7 +5,10 @@ import { Button } from '@components/Button'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
-import { DepositeConfirmationRouteProps } from '@navigator/ParamsRoute'
+import {
+  DepositeConfirmationRouteProps,
+  PrivateRouteProps,
+} from '@navigator/ParamsRoute'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { colors } from '@themes/colors'
 import * as Clipboard from 'expo-clipboard'
@@ -23,7 +26,7 @@ export const DepositConfirmation = () => {
 
   const value = params?.value
 
-  const { reset } = useNavigation()
+  const { reset } = useNavigation<PrivateRouteProps>()
 
   const clipboard = async () => {
     await Clipboard.setStringAsync('46.251.352/0001-10')
