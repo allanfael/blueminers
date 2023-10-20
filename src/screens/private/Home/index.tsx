@@ -16,7 +16,7 @@ import { colors } from '@themes/colors'
 import * as Clipboard from 'expo-clipboard'
 import { createStyles } from 'responsive-react-native'
 import { hasMoney } from 'utils/ableToWithdraw'
-import { currencyParse } from 'utils/currencyParse'
+import { currencyParse, roundedValue } from 'utils/currencyParse'
 import { hoursParse } from 'utils/hourParse'
 import { ROUTERS } from 'utils/routers'
 
@@ -51,6 +51,8 @@ export const Home = () => {
 
     toast.show('Não foi possível copiar o link')
   }
+
+  const hasBlucoin = account.blucoinBalance && account.blucoinBalance > 0
 
   const optionBackgroundColor = colors[theme].input
   const iconColor = colors[theme].text
@@ -93,6 +95,7 @@ export const Home = () => {
         lastIncome: response.account.last_income,
         incomePercent: response.lastIncome.income,
         lastUpdate: response.lastIncome.updatedAt,
+        blucoinBalance: response.account.blucoin_balance,
       }
 
       updateStore(data)
@@ -124,6 +127,7 @@ export const Home = () => {
         lastIncome: response.account.last_income,
         incomePercent: response.lastIncome.income,
         lastUpdate: response.lastIncome.updatedAt,
+        blucoinBalance: response.account.blucoin_balance,
       }
 
       save(data)
@@ -278,6 +282,17 @@ export const Home = () => {
         )}
       </View>
 
+      {!!hasBlucoin && (
+        <View style={[styles.card, styles.cardBlucoin]}>
+          <Typography variant="normalMedium" color="text">
+            Blucoin
+          </Typography>
+          <Typography variant="mediumBold" style={styles.money} color="text">
+            {roundedValue(account.blucoinBalance)} BLC
+          </Typography>
+        </View>
+      )}
+
       <View style={[styles.card, styles.cardBroker]}>
         <Typography variant="normalMedium" color="text">
           Ganho ID Broker
@@ -352,6 +367,9 @@ const styles = createStyles({
   },
   cardAccGain: {
     backgroundColor: '#0d6dfd47',
+  },
+  cardBlucoin: {
+    backgroundColor: '#590dfd46',
   },
   cardBroker: {
     backgroundColor: '#f1c40f62',

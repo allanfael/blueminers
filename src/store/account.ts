@@ -10,6 +10,7 @@ export type Account = {
   lastIncome: number | null
   lastUpdate: Date | null
   incomePercent: number | null
+  blucoinBalance: number | null
 }
 
 interface AccountState {
@@ -29,6 +30,7 @@ const initialState: Account = {
   lastIncome: null,
   incomePercent: null,
   lastUpdate: null,
+  blucoinBalance: null,
 }
 
 export const useAccountStore = create<AccountState>()((set) => ({

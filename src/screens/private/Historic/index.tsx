@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { ActivityIndicator, useColorScheme, View } from 'react-native'
+import { ActivityIndicator, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Typography } from '@components/Typography'
 import { HistoricRouteProps } from '@navigator/ParamsRoute'
@@ -14,7 +14,6 @@ import { dateParse } from 'utils/dateParse'
 import { HistoricListType } from './historicListType'
 
 interface ItemProps extends HistoricListType {
-  borderColor: string
   description: string
 }
 
@@ -24,7 +23,7 @@ const Item = (item: ItemProps) => (
     style={[
       styles.item,
       {
-        borderBottomColor: item.borderColor,
+        borderBottomColor: colors.dark.info,
       },
     ]}
   >
@@ -46,13 +45,10 @@ const Item = (item: ItemProps) => (
 export const Historic = () => {
   const { params } = useRoute<HistoricRouteProps>()
   const [list, setList] = useState<HistoricListType[]>()
-  const theme = useColorScheme() ?? 'light'
   const [loading, setLoading] = useState(false)
 
   const { bottom } = useSafeAreaInsets()
-  const paddingBottom = (bottom + 20) as number
-
-  const separatorColor = colors[theme].info
+  const paddingBottom = (bottom + 20)! as number
 
   const title = 'Histórico'
 
@@ -84,11 +80,13 @@ export const Historic = () => {
         url: '/api/user/account/history',
       })
 
-      const data = response[name][type].map((item: any) => ({
-        id: item._id,
-        value: item.value,
-        date: item.createdAt,
-      }))
+      const data = response[name as unknown as number][type].map(
+        (item: any) => ({
+          id: item._id,
+          value: item.value,
+          date: item.createdAt,
+        }),
+      )
 
       setList(data)
     } catch (e) {
@@ -127,7 +125,6 @@ export const Historic = () => {
       value={item.value}
       date={item.date}
       id={item.id}
-      borderColor={separatorColor}
       description={description}
     />
   )
@@ -138,12 +135,10 @@ export const Historic = () => {
       keyExtractor={(item) => item.id}
       ListHeaderComponent={HeaderComponent}
       renderItem={renderItem}
-      contentContainerStyle={[
-        styles.container,
-        {
-          paddingBottom,
-        },
-      ]}
+      contentContainerStyle={{
+        paddingBottom,
+      }}
+      style={styles.container}
       ListEmptyComponent={ListEmptyComponent}
       estimatedItemSize={500}
     />
@@ -169,7 +164,7 @@ const styles = createStyles({
     paddingLeft: 20,
     paddingTop: 20,
     paddingBottom: 20,
-    gap: 10,
+    gap: 20,
     borderBottomWidth: 1,
   },
   loading: {

@@ -10,7 +10,7 @@
     "build:android-apk": "eas build --profile preview --platform android",
     "build:ios": "eas build --profile preview --platform ios",
     "build:local": "eas build --local",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix --ext .tsx,.ts"
   },
   "dependencies": {
     "@expo-google-fonts/muli": "^0.1.0",

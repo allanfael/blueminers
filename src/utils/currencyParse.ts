@@ -1,4 +1,4 @@
-function roundUsing(
+export function roundUsing(
   func: (value: number) => number,
   number: number,
   prec: number,
@@ -22,3 +22,6 @@ export const currencyParse = (value: number | null): string => {
 
   return formatted
 }
+
+export const roundedValue = (value: number | null) =>
+  value && roundUsing(Math.floor, value, 2)
