@@ -12,7 +12,7 @@ import { post } from '@services/api'
 import ResponseError from '@services/api/ResponseError'
 import { useAccountStore } from '@store/account'
 import { createStyles } from 'responsive-react-native'
-import { currencyParse } from 'utils/currencyParse'
+import { currencyParse, roundedValue } from 'utils/currencyParse'
 import { ROUTERS } from 'utils/routers'
 
 import { withdrawFormSchema, WithdrawFormType } from './schemas'
@@ -27,6 +27,7 @@ export const Withdraw = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    setValue,
     reset,
   } = useForm<WithdrawFormType>({
     resolver: zodResolver(withdrawFormSchema),
@@ -58,6 +59,12 @@ export const Withdraw = () => {
     }
   }
 
+  const onMax = () => {
+    if (account.available && account.available < 0) return
+
+    setValue('withdraw', roundedValue(account.available))
+  }
+
   return (
     <Screen>
       <Typography variant="LargeBold" color="text">
@@ -81,6 +88,8 @@ export const Withdraw = () => {
             value={Number(value)}
             onChangeValue={onChange}
             error={errors.withdraw?.message}
+            showMaxButton
+            onMax={onMax}
           />
         )}
       />

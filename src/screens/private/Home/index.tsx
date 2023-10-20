@@ -360,19 +360,19 @@ const styles = createStyles({
     marginRight: 30,
   },
   cardLastIncome: {
-    backgroundColor: '#ff7f505f',
+    backgroundColor: '#ff7f5072',
   },
   cardAvailable: {
-    backgroundColor: '#de31624d',
+    backgroundColor: '#de31626c',
   },
   cardAccGain: {
-    backgroundColor: '#0d6dfd47',
+    backgroundColor: '#0d6dfd76',
   },
   cardBlucoin: {
-    backgroundColor: '#590dfd46',
+    backgroundColor: '#590dfd67',
   },
   cardBroker: {
-    backgroundColor: '#f1c40f62',
+    backgroundColor: '#f1c40f68',
     marginBottom: 10,
   },
   card: {

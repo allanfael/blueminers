@@ -1,5 +1,5 @@
 import React from 'react'
-import { useColorScheme, View } from 'react-native'
+import { Pressable, useColorScheme, View } from 'react-native'
 import DefaultCurrencyInput, {
   CurrencyInputProps,
 } from 'react-native-currency-input'
@@ -12,12 +12,16 @@ interface Props extends CurrencyInputProps {
   showInfo?: boolean
   error?: string
   min: string
+  onMax?: () => void
+  showMaxButton?: boolean
 }
 
 export const CurrencyInput = ({
   showInfo = true,
   error,
   min,
+  onMax,
+  showMaxButton = false,
   ...props
 }: Props) => {
   const theme = useColorScheme() ?? 'light'
@@ -39,22 +43,45 @@ export const CurrencyInput = ({
             </Typography>
           </View>
         )}
-        <DefaultCurrencyInput
-          placeholderTextColor={placeholderTextColor}
-          prefix="R$"
-          delimiter="."
-          separator=","
-          precision={2}
-          minValue={0}
+        <View
           style={[
-            styles.input,
+            styles.inputContainer,
             {
               backgroundColor,
-              color: text,
             },
           ]}
-          {...props}
-        />
+        >
+          <DefaultCurrencyInput
+            placeholderTextColor={placeholderTextColor}
+            prefix="R$"
+            delimiter="."
+            separator=","
+            precision={2}
+            minValue={0}
+            style={[
+              styles.input,
+              {
+                color: text,
+              },
+            ]}
+            {...props}
+          />
+          <Pressable
+            hitSlop={{
+              top: 12,
+              bottom: 12,
+              left: 12,
+              right: 12,
+            }}
+            onPress={onMax}
+          >
+            {showMaxButton && (
+              <Typography variant="smallBold" color="text">
+                MÁX
+              </Typography>
+            )}
+          </Pressable>
+        </View>
       </View>
       {!!error && (
         <Typography variant="smallBold" color="danger" style={styles.message}>
@@ -73,13 +100,20 @@ const styles = createStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  input: {
+  inputContainer: {
     marginTop: 4,
-    fontSize: 16,
-    padding: 10,
     height: 56,
     borderRadius: 12,
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  input: {
+    fontSize: 16,
     fontFamily: 'Muli_700Bold',
+    width: '80%',
+    height: 56,
   },
   message: {
     marginTop: 8,
