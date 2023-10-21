@@ -23,7 +23,6 @@ interface ItemProps extends HistoricListType {
 
 const Item = (item: ItemProps) => (
   <View
-    key={item.id}
     style={[
       styles.item,
       {
@@ -144,7 +143,7 @@ export const Historic = () => {
       }}
       style={styles.container}
       ListEmptyComponent={ListEmptyComponent}
-      estimatedItemSize={500}
+      estimatedItemSize={200}
     />
   )
 }
