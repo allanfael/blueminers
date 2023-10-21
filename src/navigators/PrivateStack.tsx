@@ -6,11 +6,12 @@ import { MaterialIcons } from '@expo/vector-icons'
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  HeaderStyleInterpolators,
 } from '@react-navigation/stack'
 import { Deposit } from '@screens/private/Deposit'
 import { DepositConfirmation } from '@screens/private/DepositConfirmation'
 import { Historic } from '@screens/private/Historic'
-import { HistoricOptions } from '@screens/private/Historic/HistoricOptions'
+import { HistoricOptions } from '@screens/private/HistoricOptions'
 import { Home } from '@screens/private/Home'
 import { Withdraw } from '@screens/private/Withdraw'
 import { WithdrawConfirmation } from '@screens/private/WithdrawConfirmation'
@@ -51,6 +52,8 @@ export const PrivateStacks = () => {
           name={ROUTERS.HOME}
           component={Home}
           options={{
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
             headerTitle: () => (
               <Image
                 source={logo}
@@ -82,6 +85,8 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
           }}
         />
         <Stack.Screen
@@ -89,7 +94,8 @@ export const PrivateStacks = () => {
           component={DepositConfirmation}
           options={{
             headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         />
         <Stack.Screen
@@ -98,6 +104,8 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
           }}
         />
         <Stack.Screen
@@ -106,7 +114,8 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         />
         <Stack.Screen

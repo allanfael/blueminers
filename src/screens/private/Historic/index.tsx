@@ -11,7 +11,11 @@ import { createStyles } from 'responsive-react-native'
 import { currencyParse } from 'utils/currencyParse'
 import { dateParse } from 'utils/dateParse'
 
-import { HistoricListType } from './historicListType'
+export type HistoricListType = {
+  value: number
+  date: Date
+  id: string
+}
 
 interface ItemProps extends HistoricListType {
   description: string
@@ -27,7 +31,7 @@ const Item = (item: ItemProps) => (
       },
     ]}
   >
-    <Typography variant="normalMedium" color="info">
+    <Typography variant="normalRegular" color="info">
       {item.description}
     </Typography>
 

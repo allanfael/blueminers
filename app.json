@@ -4,14 +4,14 @@
     "slug": "bluminers",
     "version": "2.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#fafafa",
       "dark": {
-        "image": "./assets/dark-splash.png",
+        "image": "./assets/images/dark-splash.png",
         "resizeMode": "contain",
         "backgroundColor": "#000"
       }
@@ -24,11 +24,11 @@
       "bundleIdentifier": "com.allanfael.bluminers"
     },
     "android": {
+      "package": "com.allanfael.bluminers",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.allanfael.bluminers"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
