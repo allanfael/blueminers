@@ -8,7 +8,8 @@ import { Typography } from '@components/Typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PrivateRouteProps } from '@navigator/ParamsRoute'
 import { useNavigation } from '@react-navigation/native'
-import { getQuotation, post } from '@services/api'
+import { getQuotation } from '@services/api'
+import { api, DepositProps } from '@services/api/api'
 import ResponseError from '@services/api/ResponseError'
 import { useAccountStore } from '@store/account'
 import Checkbox from 'expo-checkbox'
@@ -51,17 +52,14 @@ export const Deposit = () => {
     try {
       const quotation = await getQuotation()
 
-      const data = {
+      const data: DepositProps = {
         account_id: account.id,
         currency: 'BRL',
         value: deposit,
         used_quotation: quotation,
       }
 
-      await post({
-        url: '/api/user/account/deposit',
-        data,
-      })
+      await api.deposit(data)
 
       navigate(ROUTERS.DEPOSIT_CONFIRMATION, { value: Number(deposit) })
       reset()

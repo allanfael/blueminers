@@ -6,9 +6,9 @@ import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
 import { PrivateRouteProps } from '@navigator/ParamsRoute'
 import { useNavigation } from '@react-navigation/native'
-import { get } from '@services/api'
+import { api } from '@services/api/api'
 import ResponseError from '@services/api/ResponseError'
-import { Account, useAccountStore } from '@store/account'
+import { useAccountStore } from '@store/account'
 import { userStore } from '@store/user'
 import * as Clipboard from 'expo-clipboard'
 import { createStyles } from 'responsive-react-native'
@@ -51,22 +51,7 @@ export const Home = () => {
   const update = async () => {
     try {
       setRefresh(true)
-      const response: any = await get({
-        url: '/api/user/account/retrieve',
-      })
-
-      const data: Account = {
-        id: response.account._id,
-        user: response.account.user,
-        currentBalance: response.account.balance,
-        accumulatedGain: response.account.acc_gain,
-        available: response.account.available,
-        brokerGain: response.account.broker_gain,
-        lastIncome: response.account.last_income,
-        incomePercent: response.lastIncome.income,
-        lastUpdate: response.lastIncome.updatedAt,
-        blucoinBalance: response.account.blucoin_balance,
-      }
+      const data = await api.home()
 
       updateStore(data)
     } catch (e) {
@@ -83,22 +68,7 @@ export const Home = () => {
   const fetchHome = useCallback(async () => {
     try {
       setLoading(true)
-      const response: any = await get({
-        url: '/api/user/account/retrieve',
-      })
-
-      const data: Account = {
-        user: response.account.user,
-        id: response.account._id,
-        currentBalance: response.account.balance,
-        accumulatedGain: response.account.acc_gain,
-        available: response.account.available,
-        brokerGain: response.account.broker_gain,
-        lastIncome: response.account.last_income,
-        incomePercent: response.lastIncome.income,
-        lastUpdate: response.lastIncome.updatedAt,
-        blucoinBalance: response.account.blucoin_balance,
-      }
+      const data = await api.home()
 
       save(data)
     } catch (e) {

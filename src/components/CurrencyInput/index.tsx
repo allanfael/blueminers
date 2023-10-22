@@ -1,9 +1,9 @@
 import React from 'react'
-import { Pressable, useColorScheme, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import DefaultCurrencyInput, {
   CurrencyInputProps,
 } from 'react-native-currency-input'
-import { colors } from '@themes/colors'
+import { useTheme } from '@hooks/useTheme'
 import { createStyles } from 'responsive-react-native'
 
 import { Typography } from '../Typography'
@@ -24,11 +24,9 @@ export const CurrencyInput = ({
   showMaxButton = false,
   ...props
 }: Props) => {
-  const theme = useColorScheme() ?? 'light'
-
-  const backgroundColor = colors[theme].input
-  const text = colors[theme].text
-  const placeholderTextColor = colors[theme].info
+  const backgroundColor = useTheme('input')
+  const text = useTheme('text')
+  const placeholderTextColor = useTheme('info')
 
   return (
     <>

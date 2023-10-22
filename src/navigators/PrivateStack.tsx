@@ -1,8 +1,9 @@
 import React from 'react'
-import { Image, Pressable, useColorScheme } from 'react-native'
+import { Image, Pressable } from 'react-native'
 import { logo } from '@assets/index'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useTheme } from '@hooks/useTheme'
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -16,7 +17,6 @@ import { Home } from '@screens/private/Home'
 import { Withdraw } from '@screens/private/Withdraw'
 import { WithdrawConfirmation } from '@screens/private/WithdrawConfirmation'
 import { userStore } from '@store/user'
-import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
 import { ROUTERS } from 'utils/routers'
 
@@ -26,12 +26,8 @@ const Stack = createStackNavigator<PrivateParamsRoute>()
 
 export const PrivateStacks = () => {
   const { logout } = userStore()
-  const scheme = useColorScheme()
-
-  const background =
-    scheme === 'dark' ? colors.dark.background : colors.light.background
-
-  const text = scheme === 'dark' ? colors.dark.text : colors.light.text
+  const background = useTheme('background')
+  const text = useTheme('text')
 
   return (
     <Stack.Navigator>

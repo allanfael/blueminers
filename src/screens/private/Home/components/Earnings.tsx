@@ -2,6 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { Typography } from '@components/Typography'
+import { useTheme } from '@hooks/useTheme'
 import { useAccountStore } from '@store/account'
 import { userStore } from '@store/user'
 import { createStyles } from 'responsive-react-native'
@@ -15,6 +16,8 @@ interface Props {
 export const Earnings = ({ withdrawNavigation }: Props) => {
   const { showBalance } = userStore()
   const { account } = useAccountStore()
+
+  const backgroundColor = useTheme('button')
 
   const hasBlucoin = account.blucoinBalance && account.blucoinBalance > 0
 
@@ -56,7 +59,15 @@ export const Earnings = ({ withdrawNavigation }: Props) => {
           {currencyParse(account.available)}
         </Typography>
         {hasMoney(account.available) && (
-          <RectButton style={styles.button} onPress={withdrawNavigation}>
+          <RectButton
+            style={[
+              styles.button,
+              {
+                backgroundColor,
+              },
+            ]}
+            onPress={withdrawNavigation}
+          >
             <Typography variant="smallMedium" color="textButton">
               Retirar
             </Typography>

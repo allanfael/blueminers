@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Typography } from '@components/Typography'
 import { HistoricRouteProps } from '@navigator/ParamsRoute'
 import { useRoute } from '@react-navigation/native'
-import { get } from '@services/api'
+import { api } from '@services/api/api'
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
 import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
@@ -79,9 +79,7 @@ export const Historic = () => {
     try {
       setLoading(true)
 
-      const response: any[] = await get({
-        url: '/api/user/account/history',
-      })
+      const response: any[] = await api.historic()
 
       const data = response[name as unknown as number][type].map(
         (item: any) => ({

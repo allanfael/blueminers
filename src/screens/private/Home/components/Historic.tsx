@@ -1,8 +1,8 @@
 import React from 'react'
-import { Pressable, useColorScheme, View } from 'react-native'
+import { Pressable, View } from 'react-native'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
-import { colors } from '@themes/colors'
+import { useTheme } from '@hooks/useTheme'
 import { createStyles } from 'responsive-react-native'
 
 interface Props {
@@ -14,9 +14,8 @@ export const Historic = ({
   withdrawHistoricNavigation,
   depositHistoricNavigation,
 }: Props) => {
-  const theme = useColorScheme() ?? 'light'
-  const iconColor = colors[theme].text
-  const optionBackgroundColor = colors[theme].input
+  const iconColor = useTheme('text')
+  const optionBackgroundColor = useTheme('input')
 
   const options = [
     {

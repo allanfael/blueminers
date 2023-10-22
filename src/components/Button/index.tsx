@@ -1,9 +1,9 @@
 import React from 'react'
 import { ActivityIndicator, ViewStyle } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import { useTheme } from '@hooks/useTheme'
 import { createStyles } from 'responsive-react-native'
 
-import { colors } from '../../themes/colors'
 import { Typography } from '../Typography'
 
 interface Props {
@@ -14,9 +14,17 @@ interface Props {
 }
 
 export const Button = ({ title, styles, onPress, loading }: Props) => {
+  const backgroundColor = useTheme('button')
+
   return (
     <RectButton
-      style={[styles, style.button]}
+      style={[
+        styles,
+        style.button,
+        {
+          backgroundColor,
+        },
+      ]}
       onPress={onPress}
       enabled={!loading}
     >
@@ -36,7 +44,6 @@ const style = createStyles({
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1f35d9',
     borderRadius: 12,
     shadowColor: '#000',
     shadowOffset: {

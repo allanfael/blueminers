@@ -24,19 +24,15 @@ export const WithdrawConfirmation = () => {
         Confirmado
       </Typography>
       <View style={styles.card}>
-        <Typography
-          variant="normalBold"
-          color="textButton"
-          style={styles.space}
-        >
+        <Typography variant="normalBold" color="white" style={styles.space}>
           Solicitação de saque criada com sucesso!
         </Typography>
 
-        <Typography variant="LargeBold" color="textButton" style={styles.value}>
+        <Typography variant="LargeBold" color="white" style={styles.value}>
           {currencyParse(value)}
         </Typography>
 
-        <Typography variant="normalRegular" color="textButton">
+        <Typography variant="normalRegular" color="white">
           A transferência será enviada para sua conta bancária vinculada à chave
           pix que está cadastrada nesta conta Blu Miners.
         </Typography>

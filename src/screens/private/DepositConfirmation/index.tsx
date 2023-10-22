@@ -1,16 +1,16 @@
 import React from 'react'
-import { useColorScheme, View } from 'react-native'
+import { View } from 'react-native'
 import { useToast } from 'react-native-toast-notifications'
 import { Button } from '@components/Button'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useTheme } from '@hooks/useTheme'
 import {
   DepositeConfirmationRouteProps,
   PrivateRouteProps,
 } from '@navigator/ParamsRoute'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { colors } from '@themes/colors'
 import * as Clipboard from 'expo-clipboard'
 import { createStyles } from 'responsive-react-native'
 import { currencyParse } from 'utils/currencyParse'
@@ -18,9 +18,7 @@ import { currencyParse } from 'utils/currencyParse'
 export const DepositConfirmation = () => {
   const { params } = useRoute<DepositeConfirmationRouteProps>()
 
-  const theme = useColorScheme() ?? 'light'
-
-  const iconColor = colors[theme].text
+  const iconColor = useTheme('text')
 
   const toast = useToast()
 
@@ -39,24 +37,20 @@ export const DepositConfirmation = () => {
         Confirmado
       </Typography>
       <View style={styles.card}>
-        <Typography
-          variant="normalBold"
-          color="textButton"
-          style={styles.space}
-        >
+        <Typography variant="normalBold" color="white" style={styles.space}>
           Solicitação de depósito criada com sucesso!
         </Typography>
 
-        <Typography variant="normalRegular" color="textButton">
+        <Typography variant="normalRegular" color="white">
           Utilize dos dados abaixo para realizar a transferência do valor
           informado.
         </Typography>
 
-        <Typography variant="LargeBold" color="textButton" style={styles.value}>
+        <Typography variant="LargeBold" color="white" style={styles.value}>
           {currencyParse(value)}
         </Typography>
 
-        <Typography variant="normalRegular" color="textButton">
+        <Typography variant="normalRegular" color="white">
           Utilize uma conta bancária cujo CPF do titular seja a mesma do usuário
           cadastrado nesta conta Blu Miners! Caso contrário nao conseguiremos
           identificar seu depósito.

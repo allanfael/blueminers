@@ -8,7 +8,7 @@ import { Typography } from '@components/Typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { PrivateRouteProps } from '@navigator/ParamsRoute'
 import { useNavigation } from '@react-navigation/native'
-import { post } from '@services/api'
+import { api, WithdrawProps } from '@services/api/api'
 import ResponseError from '@services/api/ResponseError'
 import { useAccountStore } from '@store/account'
 import { createStyles } from 'responsive-react-native'
@@ -37,16 +37,13 @@ export const Withdraw = () => {
     Keyboard.dismiss()
 
     try {
-      const data = {
+      const data: WithdrawProps = {
         account_id: account.id,
         currency: 'BRL',
         value: withdraw,
       }
 
-      await post({
-        url: '/api/user/account/withdraw',
-        data,
-      })
+      await api.withdraw(data)
 
       navigate(ROUTERS.WITHDRAW_CONFIRMATION, { value: Number(withdraw) })
       reset()
@@ -99,7 +96,7 @@ export const Withdraw = () => {
       </Typography>
 
       <View style={styles.card}>
-        <Typography variant="smallMedium" color="textButton">
+        <Typography variant="smallMedium" color="white">
           Ao confirmar, você irá criar sua solicitação de saque, iremos
           processar sua solicitação em até 2 dias úteis.
         </Typography>

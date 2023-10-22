@@ -1,12 +1,6 @@
 import React, { LegacyRef } from 'react'
-import {
-  TextInput,
-  TextInputProps,
-  useColorScheme,
-  View,
-  ViewStyle,
-} from 'react-native'
-import { colors } from '@themes/colors'
+import { TextInput, TextInputProps, View, ViewStyle } from 'react-native'
+import { useTheme } from '@hooks/useTheme'
 import { createStyles } from 'responsive-react-native'
 
 import { Typography } from '../Typography'
@@ -25,11 +19,9 @@ export const Input = React.forwardRef(
     { label, containerStyle, error, ...restProps }: Props,
     ref: LegacyRef<TextInput>,
   ) => {
-    const theme = useColorScheme() ?? 'light'
-
-    const backgroundColor = colors[theme].input
-    const text = colors[theme].text
-    const placeholderTextColor = colors[theme].info
+    const backgroundColor = useTheme('input')
+    const text = useTheme('text')
+    const placeholderTextColor = useTheme('info')
 
     return (
       <>

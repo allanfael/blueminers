@@ -3,6 +3,7 @@ import { Pressable, View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { Typography } from '@components/Typography'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import { useTheme } from '@hooks/useTheme'
 import { useAccountStore } from '@store/account'
 import { userStore } from '@store/user'
 import { createStyles } from 'responsive-react-native'
@@ -17,6 +18,7 @@ interface Props {
 export const Balance = ({ clipboard, depositNavigation }: Props) => {
   const { account } = useAccountStore()
   const { onShowBalance, showBalance } = userStore()
+  const backgroundColor = useTheme('button')
 
   return (
     <View>
@@ -37,7 +39,15 @@ export const Balance = ({ clipboard, depositNavigation }: Props) => {
         />
       </View>
 
-      <RectButton style={styles.button} onPress={depositNavigation}>
+      <RectButton
+        style={[
+          styles.button,
+          {
+            backgroundColor,
+          },
+        ]}
+        onPress={depositNavigation}
+      >
         <Typography variant="smallMedium" color="textButton">
           Depositar
         </Typography>
@@ -57,7 +67,7 @@ export const Balance = ({ clipboard, depositNavigation }: Props) => {
       </Typography>
 
       <Pressable style={styles.inviteCard} onPress={clipboard}>
-        <Typography variant="normalMedium" color="textButton">
+        <Typography variant="normalMedium" color="white">
           Link de indicação
         </Typography>
         <MaterialCommunityIcons name="content-copy" size={16} color="#fff" />
@@ -81,7 +91,6 @@ const styles = createStyles({
     width: 140,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#1f35d9',
     borderRadius: 22,
     marginTop: 20,
     shadowColor: '#000',

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Image, useColorScheme } from 'react-native'
+import { Image } from 'react-native'
 import { logo } from '@assets/index'
+import { useTheme } from '@hooks/useTheme'
 import { createStackNavigator } from '@react-navigation/stack'
-import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
 import { ROUTERS } from 'utils/routers'
 
@@ -13,10 +13,7 @@ import { PublicParamsRoute } from './ParamsRoute'
 const Stack = createStackNavigator<PublicParamsRoute>()
 
 export const PublicStacks = () => {
-  const scheme = useColorScheme()
-
-  const background =
-    scheme === 'dark' ? colors.dark.background : colors.light.background
+  const background = useTheme('background')
 
   return (
     <Stack.Navigator>

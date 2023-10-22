@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import { useColorScheme } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ToastOptions, ToastProvider } from 'react-native-toast-notifications'
 import {
@@ -7,7 +6,7 @@ import {
   Muli_600SemiBold,
   Muli_700Bold,
 } from '@expo-google-fonts/muli'
-import { colors } from '@themes/colors'
+import { useTheme } from '@hooks/useTheme'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
@@ -27,8 +26,7 @@ const toastCustomization: ToastOptions = {
 export default function App() {
   moment.locale('pt-br')
 
-  const theme = useColorScheme() ?? 'light'
-  const backgroundColor = colors[theme].background
+  const backgroundColor = useTheme('background')
 
   const [fontsLoaded] = useFonts({
     Muli_400Regular,
