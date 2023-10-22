@@ -15,6 +15,7 @@ interface Props {
 
 export const Button = ({ title, styles, onPress, loading }: Props) => {
   const backgroundColor = useTheme('button')
+  const loadingColor = useTheme('textButton')
 
   return (
     <RectButton
@@ -28,7 +29,7 @@ export const Button = ({ title, styles, onPress, loading }: Props) => {
       onPress={onPress}
       enabled={!loading}
     >
-      {loading && <ActivityIndicator size="small" color="white" />}
+      {loading && <ActivityIndicator size="small" color={loadingColor} />}
       <Typography variant="normalMedium" color="textButton">
         {title}
       </Typography>
