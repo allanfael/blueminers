@@ -60,7 +60,7 @@ export const PrivateStacks = () => {
             ),
             headerRight: () => (
               <Pressable style={styles.logout} onPress={logout}>
-                <Typography variant="smallMedium" color="text">
+                <Typography variant="smallBold" color="text">
                   Sair
                 </Typography>
                 <MaterialIcons

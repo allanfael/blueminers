@@ -56,7 +56,7 @@ export const Earnings = ({ withdrawNavigation }: Props) => {
           Ganho disponível
         </Typography>
         <Typography variant="mediumBold" style={styles.money} color="text">
-          {currencyParse(account.available)}
+          {showBalance ? currencyParse(account.available) : '****'}
         </Typography>
         {hasMoney(account.available) && (
           <RectButton
@@ -68,7 +68,7 @@ export const Earnings = ({ withdrawNavigation }: Props) => {
             ]}
             onPress={withdrawNavigation}
           >
-            <Typography variant="smallMedium" color="textButton">
+            <Typography variant="smallBold" color="textButton">
               Retirar
             </Typography>
           </RectButton>

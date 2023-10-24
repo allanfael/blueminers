@@ -22,7 +22,7 @@ export const colors = {
     info: '#ddd',
     gray: '#e3e3e3',
     input: '#4e4e4e',
-    button: '#FFC300',
+    button: '#1aa4b8',
     lastIncome: '#b7950b',
   },
 } as const

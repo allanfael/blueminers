@@ -30,7 +30,7 @@ export const Button = ({ title, styles, onPress, loading }: Props) => {
       enabled={!loading}
     >
       {loading && <ActivityIndicator size="small" color={loadingColor} />}
-      <Typography variant="normalMedium" color="textButton">
+      <Typography variant="normalBold" color="textButton">
         {title}
       </Typography>
     </RectButton>

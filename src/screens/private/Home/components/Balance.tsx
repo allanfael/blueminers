@@ -22,7 +22,7 @@ export const Balance = ({ clipboard, depositNavigation }: Props) => {
 
   return (
     <View>
-      <Typography variant="smallMedium" color="text">
+      <Typography variant="smallBold" color="text">
         Saldo
       </Typography>
 
@@ -48,7 +48,7 @@ export const Balance = ({ clipboard, depositNavigation }: Props) => {
         ]}
         onPress={depositNavigation}
       >
-        <Typography variant="smallMedium" color="textButton">
+        <Typography variant="smallBold" color="textButton">
           Depositar
         </Typography>
       </RectButton>
