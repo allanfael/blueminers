@@ -2,9 +2,9 @@
 
 App showcase.
 
-![N|Solid](pic1.png)
+![N|Solid](pic1.PNG)
 
-![N|Solid](pic2.png)
+![N|Solid](pic2.PNG)
 
 ## 🏗 How to start the project?
 
