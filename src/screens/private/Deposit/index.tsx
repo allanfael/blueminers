@@ -24,7 +24,7 @@ export const Deposit = () => {
 
   const { navigate } = useNavigation<PrivateRouteProps>()
 
-  const { account } = useAccountStore()
+  const { account, update } = useAccountStore()
 
   const {
     control,
@@ -60,6 +60,16 @@ export const Deposit = () => {
       }
 
       await api.deposit(data)
+
+      const historic = await api.historic()
+      const pendingWithdraw = historic.withdrawals.pending.length
+
+      const updateData = {
+        ...account,
+        pendingWithdraw,
+      }
+
+      update(updateData)
 
       navigate(ROUTERS.DEPOSIT_CONFIRMATION, { value: Number(deposit) })
       reset()

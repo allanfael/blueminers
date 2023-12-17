@@ -1,35 +1,16 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useToast } from 'react-native-toast-notifications'
 import { Button } from '@components/Button'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useTheme } from '@hooks/useTheme'
-import {
-  DepositeConfirmationRouteProps,
-  PrivateRouteProps,
-} from '@navigator/ParamsRoute'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import * as Clipboard from 'expo-clipboard'
 import { createStyles } from 'responsive-react-native'
 import { currencyParse } from 'utils/currencyParse'
 
+import { useDepositConfirmation } from './useDepositConfirmation'
+
 export const DepositConfirmation = () => {
-  const { params } = useRoute<DepositeConfirmationRouteProps>()
-
-  const iconColor = useTheme('text')
-
-  const toast = useToast()
-
-  const value = params?.value
-
-  const { reset } = useNavigation<PrivateRouteProps>()
-
-  const clipboard = async () => {
-    await Clipboard.setStringAsync('46.251.352/0001-10')
-    toast.show('CNPJ copiado com sucesso')
-  }
+  const { iconColor, amount, clipboard, resetStack } = useDepositConfirmation()
 
   return (
     <Screen>
@@ -47,7 +28,7 @@ export const DepositConfirmation = () => {
         </Typography>
 
         <Typography variant="LargeBold" color="white" style={styles.value}>
-          {currencyParse(value)}
+          {currencyParse(amount)}
         </Typography>
 
         <Typography variant="normalRegular" color="white">
@@ -114,15 +95,7 @@ export const DepositConfirmation = () => {
       </View>
 
       <View style={styles.buttonContainer}>
-        <Button
-          title="Concluir"
-          onPress={() =>
-            reset({
-              index: 1,
-              routes: [{ name: 'Home' }],
-            })
-          }
-        />
+        <Button title="Concluir" onPress={resetStack} />
       </View>
     </Screen>
   )

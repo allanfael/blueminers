@@ -4,8 +4,7 @@ import { RectButton } from 'react-native-gesture-handler'
 import { Typography } from '@components/Typography'
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
 import { useTheme } from '@hooks/useTheme'
-import { useAccountStore } from '@store/account'
-import { userStore } from '@store/user'
+import { Account } from '@store/account'
 import { createStyles } from 'responsive-react-native'
 import { currencyParse } from 'utils/currencyParse'
 import { hoursParse } from 'utils/hourParse'
@@ -13,11 +12,18 @@ import { hoursParse } from 'utils/hourParse'
 interface Props {
   clipboard(): void
   depositNavigation(): void
+  account: Account
+  showBalance: boolean
+  onShowBalance(value: boolean): void
 }
 
-export const Balance = ({ clipboard, depositNavigation }: Props) => {
-  const { account } = useAccountStore()
-  const { onShowBalance, showBalance } = userStore()
+export const Balance = ({
+  clipboard,
+  depositNavigation,
+  account,
+  showBalance,
+  onShowBalance,
+}: Props) => {
   const backgroundColor = useTheme('button')
 
   return (
@@ -27,7 +33,12 @@ export const Balance = ({ clipboard, depositNavigation }: Props) => {
       </Typography>
 
       <View style={styles.balance}>
-        <Typography variant="LargeBold" style={styles.money} color="text">
+        <Typography
+          variant="LargeBold"
+          style={styles.money}
+          color="text"
+          testID="balanceId"
+        >
           {showBalance ? currencyParse(account.currentBalance) : '****'}
         </Typography>
 

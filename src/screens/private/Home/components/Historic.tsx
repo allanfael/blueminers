@@ -3,19 +3,26 @@ import { Pressable, View } from 'react-native'
 import { Typography } from '@components/Typography'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useTheme } from '@hooks/useTheme'
+import { Account } from '@store/account'
 import { createStyles } from 'responsive-react-native'
 
 interface Props {
   withdrawHistoricNavigation(): void
   depositHistoricNavigation(): void
+  account: Account
 }
 
 export const Historic = ({
   withdrawHistoricNavigation,
   depositHistoricNavigation,
+  account,
 }: Props) => {
   const iconColor = useTheme('text')
   const optionBackgroundColor = useTheme('input')
+
+  const solicitation =
+    account.pendingWithdraw > 1 ? 'solicitações' : 'solicitação'
+  const hasPendingWithdraw = account.pendingWithdraw > 0
 
   const options = [
     {
@@ -67,6 +74,23 @@ export const Historic = ({
           </Pressable>
         ))}
       </View>
+
+      {hasPendingWithdraw && (
+        <View style={styles.infoContainer}>
+          <View
+            style={[
+              styles.info,
+              {
+                backgroundColor: optionBackgroundColor,
+              },
+            ]}
+          >
+            <Typography variant="smallBold" color="text">
+              {account.pendingWithdraw} {solicitation} de saque em andamento
+            </Typography>
+          </View>
+        </View>
+      )}
     </View>
   )
 }
@@ -93,5 +117,14 @@ const styles = createStyles({
   optionContainer: {
     alignItems: 'center',
     marginRight: 20,
+  },
+  info: {
+    width: '100%',
+    borderRadius: 12,
+    justifyContent: 'center',
+    padding: 12,
+  },
+  infoContainer: {
+    marginTop: 30,
   },
 })

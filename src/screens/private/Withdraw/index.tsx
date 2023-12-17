@@ -1,66 +1,27 @@
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Keyboard, View } from 'react-native'
+import { View } from 'react-native'
 import { Button } from '@components/Button'
 import { CurrencyInput } from '@components/CurrencyInput'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { PrivateRouteProps } from '@navigator/ParamsRoute'
-import { useNavigation } from '@react-navigation/native'
-import { api, WithdrawProps } from '@services/api/api'
-import ResponseError from '@services/api/ResponseError'
-import { useAccountStore } from '@store/account'
 import { createStyles } from 'responsive-react-native'
-import { currencyParse, roundedValue } from 'utils/currencyParse'
-import { ROUTERS } from 'utils/routers'
+import { currencyParse } from 'utils/currencyParse'
 
 import { withdrawFormSchema, WithdrawFormType } from './schemas'
+import { useWithdraw } from './useWithdraw'
 
 export const Withdraw = () => {
-  const { navigate } = useNavigation<PrivateRouteProps>()
-
-  const { account } = useAccountStore()
+  const { onSubmit, onMax, account } = useWithdraw()
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
-    setValue,
-    reset,
   } = useForm<WithdrawFormType>({
     resolver: zodResolver(withdrawFormSchema),
   })
-
-  const onSubmit = async ({ withdraw }: WithdrawFormType) => {
-    Keyboard.dismiss()
-
-    try {
-      const data: WithdrawProps = {
-        account_id: account.id,
-        currency: 'BRL',
-        value: withdraw,
-      }
-
-      await api.withdraw(data)
-
-      navigate(ROUTERS.WITHDRAW_CONFIRMATION, { value: Number(withdraw) })
-      reset()
-    } catch (e) {
-      if (e instanceof ResponseError) {
-        setError('withdraw', {
-          message: e.message as string,
-        })
-      }
-    }
-  }
-
-  const onMax = () => {
-    if (account.available && account.available < 0) return
-
-    setValue('withdraw', roundedValue(account.available))
-  }
 
   return (
     <Screen>

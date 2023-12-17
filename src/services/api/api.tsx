@@ -32,12 +32,13 @@ export const api = {
       incomePercent: response.lastIncome.income,
       lastUpdate: response.lastIncome.updatedAt,
       blucoinBalance: response.account.blucoin_balance,
+      pendingWithdraw: 0,
     }
 
     return data
   },
-  historic: async (): Promise<any[]> => {
-    const response: any[] = await get({
+  historic: async (): Promise<any> => {
+    const response: any = await get({
       url: '/api/user/account/history',
     })
 
