@@ -11,6 +11,7 @@ export type Account = {
   lastUpdate: Date | null
   incomePercent: number | null
   blucoinBalance: number | null
+  pendingWithdraw: number
 }
 
 interface AccountState {
@@ -20,7 +21,7 @@ interface AccountState {
   clean: () => void
 }
 
-const initialState: Account = {
+export const initialState: Account = {
   user: null,
   id: null,
   currentBalance: null,
@@ -31,6 +32,7 @@ const initialState: Account = {
   incomePercent: null,
   lastUpdate: null,
   blucoinBalance: null,
+  pendingWithdraw: 0,
 }
 
 export const useAccountStore = create<AccountState>()((set) => ({
@@ -40,10 +42,12 @@ export const useAccountStore = create<AccountState>()((set) => ({
       account,
     }))
   },
-  update(account) {
+  update(data) {
     set((state) => ({
-      ...state,
-      account,
+      account: {
+        ...state.account,
+        ...data,
+      },
     }))
   },
   clean() {

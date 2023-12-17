@@ -3,20 +3,22 @@ import { View } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { Typography } from '@components/Typography'
 import { useTheme } from '@hooks/useTheme'
-import { useAccountStore } from '@store/account'
-import { userStore } from '@store/user'
+import { Account } from '@store/account'
 import { createStyles } from 'responsive-react-native'
 import { hasMoney } from 'utils/ableToWithdraw'
 import { currencyParse, roundedValue } from 'utils/currencyParse'
 
 interface Props {
   withdrawNavigation(): void
+  showBalance: boolean
+  account: Account
 }
 
-export const Earnings = ({ withdrawNavigation }: Props) => {
-  const { showBalance } = userStore()
-  const { account } = useAccountStore()
-
+export const Earnings = ({
+  withdrawNavigation,
+  showBalance,
+  account,
+}: Props) => {
   const backgroundColor = useTheme('button')
 
   const hasBlucoin = account.blucoinBalance && account.blucoinBalance > 0

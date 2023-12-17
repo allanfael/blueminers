@@ -6,44 +6,15 @@ import { HistoricRouteProps } from '@navigator/ParamsRoute'
 import { useRoute } from '@react-navigation/native'
 import { api } from '@services/api/api'
 import { FlashList, ListRenderItem } from '@shopify/flash-list'
-import { colors } from '@themes/colors'
 import { createStyles } from 'responsive-react-native'
-import { currencyParse } from 'utils/currencyParse'
-import { dateParse } from 'utils/dateParse'
+
+import { HistoricItem } from './component/HistoricItem'
 
 export type HistoricListType = {
   value: number
   date: Date
   id: string
 }
-
-interface ItemProps extends HistoricListType {
-  description: string
-}
-
-const Item = (item: ItemProps) => (
-  <View
-    style={[
-      styles.item,
-      {
-        borderBottomColor: colors.dark.info,
-      },
-    ]}
-  >
-    <Typography variant="normalRegular" color="info">
-      {item.description}
-    </Typography>
-
-    <View style={styles.row}>
-      <Typography variant="normalBold" color="text">
-        {currencyParse(item.value)}
-      </Typography>
-      <Typography variant="normalRegular" color="info">
-        {dateParse(item.date)}
-      </Typography>
-    </View>
-  </View>
-)
 
 export const Historic = () => {
   const { params } = useRoute<HistoricRouteProps>()
@@ -122,7 +93,7 @@ export const Historic = () => {
   )
 
   const renderItem: ListRenderItem<HistoricListType> = ({ item }) => (
-    <Item
+    <HistoricItem
       value={item.value}
       date={item.date}
       id={item.id}
@@ -154,19 +125,6 @@ const styles = createStyles({
   },
   container: {
     flexGrow: 1,
-  },
-  row: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  item: {
-    paddingRight: 20,
-    paddingLeft: 20,
-    paddingTop: 20,
-    paddingBottom: 20,
-    gap: 20,
-    borderBottomWidth: 1,
   },
   loading: {
     marginTop: 20,
