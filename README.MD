@@ -2,9 +2,9 @@
 
 App showcase.
 
-![N|Solid](pic1.PNG)
+<img src="pic1.png" alt="N|Solid" width="200" height="400">
 
-![N|Solid](pic2.PNG)
+<img src="pic2.png" alt="N|Solid" width="200" height="400">
 
 ## 🏗 How to start the project?
 

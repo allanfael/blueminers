@@ -11,17 +11,27 @@ jest.mock('./useHome', () => ({
   useHome: jest.fn(),
 }))
 
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native')
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+    }),
+  }
+})
+
 describe('<Home />', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('should render Home correctly', async () => {
     ;(useHome as jest.MockedFunction<typeof useHome>).mockReturnValue({
       loading: false,
       error: '',
       refresh: false,
       update: jest.fn(),
-      depositNavigation: jest.fn(),
-      withdrawNavigation: jest.fn(),
-      depositHistoricNavigation: jest.fn(),
-      withdrawHistoricNavigation: jest.fn(),
       clipboard: jest.fn(),
       account: initialState,
       showBalance: false,
@@ -39,10 +49,6 @@ describe('<Home />', () => {
       error: '',
       refresh: false,
       update: jest.fn(),
-      depositNavigation: jest.fn(),
-      withdrawNavigation: jest.fn(),
-      depositHistoricNavigation: jest.fn(),
-      withdrawHistoricNavigation: jest.fn(),
       clipboard: jest.fn(),
       account: mockHome,
       showBalance: false,

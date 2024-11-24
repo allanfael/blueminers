@@ -1,8 +1,6 @@
 import React from 'react'
-import { Image, Pressable } from 'react-native'
-import { logo } from '@assets/index'
-import { Typography } from '@components/Typography'
-import { MaterialIcons } from '@expo/vector-icons'
+import { Logo } from '@components/Logo'
+import { Logout as LogoutButton } from '@components/Logout'
 import { useTheme } from '@hooks/useTheme'
 import {
   CardStyleInterpolators,
@@ -17,7 +15,6 @@ import { Home } from '@screens/private/Home'
 import { Withdraw } from '@screens/private/Withdraw'
 import { WithdrawConfirmation } from '@screens/private/WithdrawConfirmation'
 import { userStore } from '@store/user'
-import { createStyles } from 'responsive-react-native'
 import { ROUTERS } from 'utils/routers'
 
 import { PrivateParamsRoute } from './ParamsRoute'
@@ -28,6 +25,9 @@ export const PrivateStacks = () => {
   const { logout } = userStore()
   const background = useTheme('background')
   const text = useTheme('text')
+
+  const cardVerticalInterpolator = CardStyleInterpolators.forVerticalIOS
+  const cardHorizontalInterpolator = CardStyleInterpolators.forHorizontalIOS
 
   return (
     <Stack.Navigator>
@@ -48,31 +48,10 @@ export const PrivateStacks = () => {
           name={ROUTERS.HOME}
           component={Home}
           options={{
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            cardStyleInterpolator: cardVerticalInterpolator,
             headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
-            headerTitle: () => (
-              <Image
-                source={logo}
-                resizeMode="contain"
-                alt=""
-                style={styles.image}
-              />
-            ),
-            headerRight: () => (
-              <Pressable style={styles.logout} onPress={logout}>
-                <Typography variant="smallBold" color="text">
-                  Sair
-                </Typography>
-                <MaterialIcons
-                  name="logout"
-                  size={26}
-                  color={text}
-                  style={{
-                    alignSelf: 'center',
-                  }}
-                />
-              </Pressable>
-            ),
+            headerTitle: () => <Logo />,
+            headerRight: () => <LogoutButton onPress={logout} />,
           }}
         />
         <Stack.Screen
@@ -81,7 +60,7 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            cardStyleInterpolator: cardVerticalInterpolator,
             headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
           }}
         />
@@ -90,7 +69,7 @@ export const PrivateStacks = () => {
           component={DepositConfirmation}
           options={{
             headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            cardStyleInterpolator: cardHorizontalInterpolator,
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         />
@@ -100,7 +79,7 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            cardStyleInterpolator: cardVerticalInterpolator,
             headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
           }}
         />
@@ -110,7 +89,7 @@ export const PrivateStacks = () => {
           options={{
             headerTitle: '',
             headerBackTitleVisible: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            cardStyleInterpolator: cardHorizontalInterpolator,
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
           }}
         />
@@ -134,16 +113,3 @@ export const PrivateStacks = () => {
     </Stack.Navigator>
   )
 }
-
-const styles = createStyles({
-  image: {
-    height: 20,
-    width: 120,
-  },
-  logout: {
-    flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
-    paddingRight: 12,
-  },
-})

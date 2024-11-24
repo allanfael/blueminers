@@ -18,8 +18,8 @@ export const Loading = () => {
         autoPlay
         ref={animation}
         style={{
-          width: 200,
-          height: 200,
+          width: 160,
+          height: 160,
           marginBottom: 100,
         }}
         source={loading}

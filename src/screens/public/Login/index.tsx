@@ -1,49 +1,21 @@
 import React from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from '@components/Button'
 import { Input } from '@components/Input'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { post } from '@services/api'
-import ResponseError from '@services/api/ResponseError'
-import { userStore } from '@store/user'
 import { createStyles } from 'responsive-react-native'
 
-import { authenticationFormSchema, AuthenticationFormType } from './schemas'
+import { useLogin } from './useLogin'
 
 export const Login = () => {
-  const { save } = userStore()
+  const { form, onSubmit } = useLogin()
 
   const {
-    control,
-    handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
-  } = useForm<AuthenticationFormType>({
-    resolver: zodResolver(authenticationFormSchema),
-  })
-
-  const onSubmit = async (data: AuthenticationFormType) => {
-    try {
-      const response = await post({
-        url: '/api/user/signin',
-        data,
-      })
-
-      const id = response.roles[0]._id
-      const token = response.token
-
-      save(id, token)
-    } catch (e) {
-      if (e instanceof ResponseError) {
-        setError('password', {
-          message: e.message as string,
-        })
-      }
-    }
-  }
+    handleSubmit,
+  } = form
 
   return (
     <Screen>
@@ -56,13 +28,14 @@ export const Login = () => {
         </Typography>
 
         <Controller
-          control={control}
+          control={form.control}
           rules={{
             required: true,
           }}
           name="email"
           render={({ field: { onChange, value } }) => (
             <Input
+              testID="login-email"
               label="E-mail"
               containerStyle={styles.email}
               placeholder="Digite seu e-mail"
@@ -76,13 +49,14 @@ export const Login = () => {
         />
 
         <Controller
-          control={control}
+          control={form.control}
           rules={{
             required: true,
           }}
           name="password"
           render={({ field: { onChange, value } }) => (
             <Input
+              testID="login-password"
               label="Senha"
               containerStyle={styles.input}
               placeholder="Digite sua senha"
@@ -101,6 +75,7 @@ export const Login = () => {
           title="Entrar"
           styles={styles.button}
           loading={isSubmitting}
+          testID="login-button"
         />
       </KeyboardAwareScrollView>
     </Screen>

@@ -42,7 +42,8 @@ export const Withdraw = () => {
         name="withdraw"
         render={({ field: { onChange, value } }) => (
           <CurrencyInput
-            min="1,00"
+            testID="withdraw-input"
+            min="5,00"
             value={Number(value)}
             onChangeValue={onChange}
             error={errors.withdraw?.message}
@@ -65,6 +66,7 @@ export const Withdraw = () => {
 
       <View style={styles.buttonContainer}>
         <Button
+          testID="submit-button"
           loading={isSubmitting}
           title="Confirmar"
           onPress={handleSubmit(onSubmit)}

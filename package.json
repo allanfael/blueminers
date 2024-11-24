@@ -54,7 +54,8 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@rocketseat/eslint-config": "^2.1.0",
-    "@types/": "react-navigation/stack",
+    "@testing-library/react": "16.0.1",
+    "@testing-library/react-hooks": "8.0.1",
     "@types/jest": "29.5.11",
     "@types/react": "18.2.28",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
@@ -66,9 +67,9 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "identity-obj-proxy": "3.0.0",
     "prettier": "^3.0.3",
-    "typescript": "^5.2.2",
-    "identity-obj-proxy": "3.0.0"
+    "typescript": "^5.2.2"
   },
   "private": true
 }

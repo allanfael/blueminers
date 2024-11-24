@@ -69,7 +69,7 @@ exports[`<Home /> should render Home correctly 1`] = `
         onGestureHandlerEvent={[Function]}
         onGestureHandlerStateChange={[Function]}
         onHandlerStateChange={[Function]}
-        onPress={[MockFunction]}
+        onPress={[Function]}
         style={
           {
             "backgroundColor": "#1f35d9",
@@ -468,7 +468,7 @@ exports[`<Home /> should render Home correctly 1`] = `
           onGestureHandlerEvent={[Function]}
           onGestureHandlerStateChange={[Function]}
           onHandlerStateChange={[Function]}
-          onPress={[MockFunction]}
+          onPress={[Function]}
           style={
             {
               "backgroundColor": "#1f35d9",
@@ -616,7 +616,7 @@ exports[`<Home /> should render Home with values correctly 1`] = `
         onGestureHandlerEvent={[Function]}
         onGestureHandlerStateChange={[Function]}
         onHandlerStateChange={[Function]}
-        onPress={[MockFunction]}
+        onPress={[Function]}
         style={
           {
             "backgroundColor": "#1f35d9",
@@ -1017,7 +1017,7 @@ exports[`<Home /> should render Home with values correctly 1`] = `
           onGestureHandlerEvent={[Function]}
           onGestureHandlerStateChange={[Function]}
           onHandlerStateChange={[Function]}
-          onPress={[MockFunction]}
+          onPress={[Function]}
           style={
             {
               "backgroundColor": "#1f35d9",

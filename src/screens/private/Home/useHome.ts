@@ -1,13 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from 'react'
 import { useToast } from 'react-native-toast-notifications'
-import { PrivateRouteProps } from '@navigator/ParamsRoute'
-import { useNavigation } from '@react-navigation/native'
 import { api } from '@services/api/api'
 import ResponseError from '@services/api/ResponseError'
 import { Account, useAccountStore } from '@store/account'
 import { userStore } from '@store/user'
 import * as Clipboard from 'expo-clipboard'
-import { ROUTERS } from 'utils/routers'
 
 export type UseHomeProps = {
   error: string
@@ -16,10 +14,6 @@ export type UseHomeProps = {
   account: Account
   showBalance: boolean
   onShowBalance(value: boolean): void
-  depositNavigation(): void
-  withdrawNavigation(): void
-  depositHistoricNavigation(): void
-  withdrawHistoricNavigation(): void
   clipboard(): void
   update(): void
 }
@@ -32,15 +26,7 @@ export const useHome = (): UseHomeProps => {
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
 
-  const { navigate } = useNavigation<PrivateRouteProps>()
   const toast = useToast()
-
-  const depositNavigation = () => navigate(ROUTERS.DEPOSIT)
-  const withdrawNavigation = () => navigate(ROUTERS.WITHDRAW)
-  const depositHistoricNavigation = () =>
-    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'deposit' })
-  const withdrawHistoricNavigation = () =>
-    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'withdraw' })
 
   const clipboard = async () => {
     if (account.user) {
@@ -54,69 +40,47 @@ export const useHome = (): UseHomeProps => {
     toast.show('Não foi possível copiar o link')
   }
 
-  const update = async () => {
-    try {
-      setRefresh(true)
-      const home = await api.home()
-      const historic = await api.historic()
+  const fetch = useCallback(
+    async (
+      loading: (loading: boolean) => void,
+      saveData: (data: Account) => void,
+    ) => {
+      try {
+        loading(true)
+        const home = await api.home()
+        const historic = await api.historic()
 
-      const pendingWithdraw = historic.withdrawals.pending.length
+        const pendingWithdraw = historic.withdrawals.pending.length
 
-      const data = {
-        ...home,
-        pendingWithdraw,
+        const data = {
+          ...home,
+          pendingWithdraw,
+        }
+
+        saveData(data)
+      } catch (e) {
+        if (e instanceof ResponseError) {
+          return setError(e.message as string)
+        }
+
+        logout()
+      } finally {
+        loading(false)
       }
-
-      updateStore(data)
-      setError('')
-    } catch (e) {
-      if (e instanceof ResponseError) {
-        return setError(e.message as string)
-      }
-
-      logout()
-    } finally {
-      setRefresh(false)
-    }
-  }
-
-  const fetchHome = useCallback(async () => {
-    try {
-      setLoading(true)
-      const home = await api.home()
-      const historic = await api.historic()
-
-      const pendingWithdraw = historic.withdrawals.pending.length
-
-      const data = {
-        ...home,
-        pendingWithdraw,
-      }
-
-      save(data)
-    } catch (e) {
-      if (e instanceof ResponseError) {
-        return setError(e.message as string)
-      }
-
-      logout()
-    } finally {
-      setLoading(false)
-    }
-  }, [save, logout])
+    },
+    [save, logout],
+  )
 
   useEffect(() => {
-    fetchHome()
-  }, [fetchHome])
+    fetch(setLoading, save)
+  }, [])
+
+  const update = () => fetch(setRefresh, updateStore)
 
   return {
     error,
     loading,
     refresh,
-    depositNavigation,
-    withdrawNavigation,
-    depositHistoricNavigation,
-    withdrawHistoricNavigation,
     clipboard,
     update,
     account,

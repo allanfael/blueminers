@@ -4,8 +4,8 @@ const withdraw = z
   .number({
     required_error: 'Campo obrigatório',
   })
-  .refine(async (val) => Number(val) >= 1, {
-    message: 'Valor mínimo $1,00',
+  .refine(async (val) => Number(val) >= 5, {
+    message: 'Valor mínimo R$5,00',
   })
   .nullable()
 
