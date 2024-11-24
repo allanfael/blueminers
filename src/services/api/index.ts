@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios, { AxiosError } from 'axios'
 
 import ResponseError from './ResponseError'
 import { getCurrentAccessToken } from './token'
 
 export const api = axios.create({
-  baseURL: 'https://bluminers.vercel.app',
+  baseURL: process.env.EXPO_PUBLIC_BASE_URL,
   timeout: 10000,
 })
 
@@ -12,6 +13,7 @@ api.interceptors.request.use(
   (config) => {
     if (config.headers.Authorization !== false) {
       const token = getCurrentAccessToken()
+
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
@@ -38,6 +40,7 @@ export async function get<R>(data: Params) {
     return response.data
   } catch (error: AxiosError | unknown) {
     if (axios.isAxiosError(error)) throw new ResponseError(error)
+
     throw new Error()
   }
 }

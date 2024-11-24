@@ -11,9 +11,10 @@ interface Props {
   styles?: ViewStyle
   loading?: boolean
   onPress(): void
+  testID?: string
 }
 
-export const Button = ({ title, styles, onPress, loading }: Props) => {
+export const Button = ({ title, styles, onPress, loading, testID }: Props) => {
   const backgroundColor = useTheme('button')
   const loadingColor = useTheme('textButton')
 
@@ -28,6 +29,7 @@ export const Button = ({ title, styles, onPress, loading }: Props) => {
       ]}
       onPress={onPress}
       enabled={!loading}
+      testID={testID}
     >
       {loading && <ActivityIndicator size="small" color={loadingColor} />}
       <Typography variant="normalBold" color="textButton">

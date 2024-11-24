@@ -4,7 +4,10 @@ import { Button } from '@components/Button'
 import { Loading } from '@components/Loading'
 import { Screen } from '@components/Screen'
 import { Typography } from '@components/Typography'
+import { PrivateRouteProps } from '@navigator/ParamsRoute'
+import { useNavigation } from '@react-navigation/native'
 import { createStyles } from 'responsive-react-native'
+import { ROUTERS } from 'utils/routers'
 
 import { Balance } from './components/Balance'
 import { Earnings } from './components/Earnings'
@@ -16,16 +19,21 @@ export const Home = () => {
     error,
     loading,
     refresh,
-    depositNavigation,
-    withdrawNavigation,
-    depositHistoricNavigation,
-    withdrawHistoricNavigation,
     clipboard,
     update,
     account,
     showBalance,
     onShowBalance,
   } = useHome()
+
+  const { navigate } = useNavigation<PrivateRouteProps>()
+
+  const depositNavigation = () => navigate(ROUTERS.DEPOSIT)
+  const withdrawNavigation = () => navigate(ROUTERS.WITHDRAW)
+  const depositHistoricNavigation = () =>
+    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'deposit' })
+  const withdrawHistoricNavigation = () =>
+    navigate(ROUTERS.HISTORIC_OPTIONS, { type: 'withdraw' })
 
   if (loading) return <Loading />
 
